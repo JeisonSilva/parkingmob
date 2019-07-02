@@ -3,24 +3,24 @@ package com.jsonapp.parkingmob.ui.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.jsonapp.parkingmob.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ParkingManangerFragment.OnFragmentInteractionListener} interface
+ * {@link RequestCarDataFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ParkingManangerFragment#newInstance} factory method to
+ * Use the {@link RequestCarDataFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ParkingManangerFragment extends Fragment {
+public class RequestCarDataFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,14 +31,16 @@ public class ParkingManangerFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private FloatingActionButton fb_addCar;
+    private TextInputEditText input_edit_plate;
+    private TextInputEditText input_edit_customerNmae;
+    private AppCompatButton btn_new_car;
 
-    public ParkingManangerFragment() {
+    public RequestCarDataFragment() {
         // Required empty public constructor
     }
 
-    public static ParkingManangerFragment newInstance() {
-        ParkingManangerFragment fragment = new ParkingManangerFragment();
+    public static RequestCarDataFragment newInstance() {
+        RequestCarDataFragment fragment = new RequestCarDataFragment();
         return fragment;
     }
 
@@ -54,24 +56,25 @@ public class ParkingManangerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_parking_mananger, container, false);
-        fb_addCar = view.findViewById(R.id.fb_add_car);
+        // Inflate the layout for this fragment
+        View view =inflater.inflate(R.layout.fragment_request_car_data, container, false);
+        input_edit_plate = view.findViewById(R.id.input_edit_plate);
+        input_edit_customerNmae = view.findViewById(R.id.input_edit_customerName);
+        btn_new_car = view.findViewById(R.id.btn_new_car);
 
-        fb_addCar.setOnClickListener(addNewCar);
+        btn_new_car.setOnClickListener(addNewCar);
         return view;
     }
 
     View.OnClickListener addNewCar = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            requestCarData();
+            String plate = String.valueOf(input_edit_plate.getText());
+            String customerName = String.valueOf(input_edit_customerNmae.getText());
+
+            mListener.addNewCar(plate, customerName);
         }
     };
-
-    private void requestCarData() {
-        if(mListener instanceof OnFragmentInteractionListener)
-            mListener.requestCarData();
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -102,7 +105,6 @@ public class ParkingManangerFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-        void requestCarData();
+        void addNewCar(String plate, String custumerName);
     }
 }
