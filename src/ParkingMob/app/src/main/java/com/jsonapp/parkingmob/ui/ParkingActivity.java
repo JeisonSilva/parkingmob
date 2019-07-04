@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.jsonapp.parkingmob.Parking.CarDto;
 import com.jsonapp.parkingmob.Parking.ParkingBusiness;
 import com.jsonapp.parkingmob.Parking.ParkingBusinessImpl;
 import com.jsonapp.parkingmob.Parking.ParkingDal;
@@ -24,6 +25,8 @@ import com.jsonapp.parkingmob.R;
 import com.jsonapp.parkingmob.ui.fragments.ParkingManangerFragment;
 import com.jsonapp.parkingmob.ui.fragments.RequestCarDataFragment;
 
+import java.util.List;
+
 public class ParkingActivity extends AppCompatActivity
         implements ParkingDal,
         ParkingManangerFragment.OnFragmentInteractionListener,
@@ -32,6 +35,7 @@ public class ParkingActivity extends AppCompatActivity
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    private ParkingBusiness parkingBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class ParkingActivity extends AppCompatActivity
         toggle.syncState();
 
         ParkingRepository parkingRepository = new ParkingRepositoryImpl();
-        ParkingBusiness parkingBusiness = new ParkingBusinessImpl(this, parkingRepository);
+        this.parkingBusiness = new ParkingBusinessImpl(this, parkingRepository);
     }
 
     @Override
@@ -59,7 +63,7 @@ public class ParkingActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager
                 .beginTransaction()
-                .replace(R.id.fragment_layout, ParkingManangerFragment.newInstance())
+                .replace(R.id.fragment_layout, ParkingManangerFragment.newInstance(this.parkingBusiness.getCars()))
                 .commit();
     }
 
@@ -88,6 +92,20 @@ public class ParkingActivity extends AppCompatActivity
 
     @Override
     public void addNewCar(String plate, String custumerName) {
-        Toast.makeText(this, String.format("Placa:%s  do cliente: %s", plate, custumerName),Toast.LENGTH_LONG).show();
+        this.parkingBusiness.addCar(plate, custumerName);
+    }
+
+    @Override
+    public void requestListCar() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_layout, ParkingManangerFragment.newInstance(this.parkingBusiness.getCars()))
+                .commit();
+    }
+
+    @Override
+    public List<CarDto> getCars() {
+        return this.parkingBusiness.getCars();
     }
 }

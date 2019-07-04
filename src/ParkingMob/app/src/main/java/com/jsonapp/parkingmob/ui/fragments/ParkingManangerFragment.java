@@ -5,12 +5,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.jsonapp.parkingmob.Parking.CarDto;
 import com.jsonapp.parkingmob.R;
+import com.jsonapp.parkingmob.ui.adapters.CarsAdapter;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,22 +30,24 @@ import com.jsonapp.parkingmob.R;
 public class ParkingManangerFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "cars";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private List<CarDto> mParam1;
 
     private OnFragmentInteractionListener mListener;
     private FloatingActionButton fb_addCar;
+    private RecyclerView rc_cars;
 
     public ParkingManangerFragment() {
         // Required empty public constructor
     }
 
-    public static ParkingManangerFragment newInstance() {
+    public static ParkingManangerFragment newInstance(List<CarDto> carDtos) {
         ParkingManangerFragment fragment = new ParkingManangerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("cars", (Serializable) carDtos);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -46,8 +55,7 @@ public class ParkingManangerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = (List<CarDto>) getArguments().getSerializable(ARG_PARAM1);
         }
     }
 
@@ -56,6 +64,15 @@ public class ParkingManangerFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_parking_mananger, container, false);
         fb_addCar = view.findViewById(R.id.fb_add_car);
+        rc_cars = view.findViewById(R.id.rc_cars);
+
+        if (getArguments() != null) {
+            mParam1 = (List<CarDto>) getArguments().getSerializable(ARG_PARAM1);
+
+            CarsAdapter carsAdapter = new CarsAdapter(this.mParam1);
+            rc_cars.setLayoutManager(new LinearLayoutManager(getContext()));
+            rc_cars.setAdapter(carsAdapter);
+        }
 
         fb_addCar.setOnClickListener(addNewCar);
         return view;
