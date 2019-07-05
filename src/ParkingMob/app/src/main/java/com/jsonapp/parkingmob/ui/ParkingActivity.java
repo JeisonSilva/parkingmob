@@ -25,6 +25,7 @@ import com.jsonapp.parkingmob.R;
 import com.jsonapp.parkingmob.ui.fragments.ParkingManangerFragment;
 import com.jsonapp.parkingmob.ui.fragments.RequestCarDataFragment;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ParkingActivity extends AppCompatActivity
@@ -92,7 +93,13 @@ public class ParkingActivity extends AppCompatActivity
 
     @Override
     public void addNewCar(String plate, String custumerName) {
-        this.parkingBusiness.addCar(plate, custumerName);
+        try {
+            this.parkingBusiness.addCar(plate, custumerName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
