@@ -11,7 +11,7 @@ public class SignUpRepositoryImpl implements SignUpRepository {
         SharedPreferences sharedPreferences = context.getSharedPreferences("authorization.data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString("userNmae", subscriptionDto.getUserName());
+        editor.putString("userName", subscriptionDto.getUserName());
         editor.putString("email", subscriptionDto.getEmail());
         editor.putString("password", subscriptionDto.getPassword());
         editor.putBoolean("remember", false);
