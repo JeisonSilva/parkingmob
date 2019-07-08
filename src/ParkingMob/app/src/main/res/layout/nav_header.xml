@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:padding="16dp"
+    android:gravity="bottom"
+    android:background="@drawable/fundo_header"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_user_perfil"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Jeison O. da Silva"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="jeison@yahoo.com.br"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+
+</LinearLayout>

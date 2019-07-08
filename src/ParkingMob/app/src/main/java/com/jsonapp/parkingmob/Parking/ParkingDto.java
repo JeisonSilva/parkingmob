@@ -9,4 +9,14 @@ public class ParkingDto {
     public ParkingDto() {
         this.carDtos = new ArrayList<>();
     }
+
+    public void addCar(CarDto car) {
+
+        if(car != null)
+            this.carDtos.add(car);
+    }
+
+    public List<CarDto> getCars() {
+        return this.carDtos;
+    }
 }

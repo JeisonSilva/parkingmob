@@ -3,51 +3,44 @@ package com.jsonapp.parkingmob.ui.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jsonapp.parkingmob.Parking.CarDto;
 import com.jsonapp.parkingmob.R;
-import com.jsonapp.parkingmob.ui.adapters.CarsAdapter;
-
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ParkingManangerFragment.OnFragmentInteractionListener} interface
+ * {@link RequestCarDataFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ParkingManangerFragment#newInstance} factory method to
+ * Use the {@link RequestCarDataFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ParkingManangerFragment extends Fragment {
+public class RequestCarDataFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "cars";
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private List<CarDto> mParam1;
+    private String mParam1;
+    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private FloatingActionButton fb_addCar;
-    private RecyclerView rc_cars;
+    private TextInputEditText input_edit_plate;
+    private TextInputEditText input_edit_customerNmae;
+    private AppCompatButton btn_new_car;
 
-    public ParkingManangerFragment() {
+    public RequestCarDataFragment() {
         // Required empty public constructor
     }
 
-    public static ParkingManangerFragment newInstance(List<CarDto> carDtos) {
-        ParkingManangerFragment fragment = new ParkingManangerFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("cars", (Serializable) carDtos);
-        fragment.setArguments(bundle);
+    public static RequestCarDataFragment newInstance() {
+        RequestCarDataFragment fragment = new RequestCarDataFragment();
         return fragment;
     }
 
@@ -55,40 +48,33 @@ public class ParkingManangerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = (List<CarDto>) getArguments().getSerializable(ARG_PARAM1);
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_parking_mananger, container, false);
-        fb_addCar = view.findViewById(R.id.fb_add_car);
-        rc_cars = view.findViewById(R.id.rc_cars);
+        // Inflate the layout for this fragment
+        View view =inflater.inflate(R.layout.fragment_request_car_data, container, false);
+        input_edit_plate = view.findViewById(R.id.input_edit_plate);
+        input_edit_customerNmae = view.findViewById(R.id.input_edit_customerName);
+        btn_new_car = view.findViewById(R.id.btn_new_car);
 
-        if (getArguments() != null) {
-            mParam1 = (List<CarDto>) getArguments().getSerializable(ARG_PARAM1);
-
-            CarsAdapter carsAdapter = new CarsAdapter(this.mParam1);
-            rc_cars.setLayoutManager(new LinearLayoutManager(getContext()));
-            rc_cars.setAdapter(carsAdapter);
-        }
-
-        fb_addCar.setOnClickListener(addNewCar);
+        btn_new_car.setOnClickListener(addNewCar);
         return view;
     }
 
     View.OnClickListener addNewCar = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            requestCarData();
+            String plate = String.valueOf(input_edit_plate.getText());
+            String customerName = String.valueOf(input_edit_customerNmae.getText());
+
+            mListener.addNewCar(plate, customerName);
         }
     };
-
-    private void requestCarData() {
-        if(mListener instanceof OnFragmentInteractionListener)
-            mListener.requestCarData();
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -119,7 +105,6 @@ public class ParkingManangerFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-        void requestCarData();
+        void addNewCar(String plate, String custumerName);
     }
 }
