@@ -36,14 +36,14 @@
         app:layout_constraintVertical_bias="0.01999998">
 
         <RadioButton
-            android:id="@+id/rb_export_and_keep_data"
+            android:id="@+id/rb_export_data_without_keeping_them"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="Sem salvar dados localmente" />
 
         <RadioButton
-            android:id="@+id/rb_export_data_without_keeping_them"
+            android:id="@+id/rb_export_and_keep_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"

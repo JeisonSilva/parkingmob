@@ -11,4 +11,6 @@ public interface LoginRepository {
     boolean isRemember();
 
     LoginDto getLoginCurrent();
+
+    void noRememberUser();
 }
