@@ -35,4 +35,14 @@ public class ParkingBusinessImpl implements ParkingBusiness {
     public List<CarDto> getCars() {
         return this.parking.getCars();
     }
+
+    @Override
+    public void exportDataAndKeepData() {
+
+    }
+
+    @Override
+    public void exportDataWithoutKeepingThem() {
+
+    }
 }

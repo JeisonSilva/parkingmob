@@ -2,6 +2,7 @@ package com.jsonapp.parkingmob.ui;
 
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ import com.jsonapp.parkingmob.Parking.ParkingDto;
 import com.jsonapp.parkingmob.Parking.ParkingRepository;
 import com.jsonapp.parkingmob.Parking.ParkingRepositoryImpl;
 import com.jsonapp.parkingmob.R;
+import com.jsonapp.parkingmob.ui.dialogs.ExportDataDialogImpl;
 import com.jsonapp.parkingmob.ui.fragments.ParkingManangerFragment;
 import com.jsonapp.parkingmob.ui.fragments.RequestCarDataFragment;
 
@@ -33,7 +36,7 @@ import java.util.List;
 public class ParkingActivity extends AppCompatActivity
         implements ParkingDal,
         ParkingManangerFragment.OnFragmentInteractionListener,
-        RequestCarDataFragment.OnFragmentInteractionListener {
+        RequestCarDataFragment.OnFragmentInteractionListener, ExportDataDialogImpl.ExportDataDialog {
 
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -86,6 +89,21 @@ public class ParkingActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mnu_export_file:{
+                ExportDataDialogImpl exportDataDialog = ExportDataDialogImpl.newDialog();
+                exportDataDialog.openDialog(getSupportFragmentManager());
+            }
+            case R.id.mnu_logout:{
+
+            }
+        }
+
+        return true;
+    }
+
+    @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
@@ -122,5 +140,13 @@ public class ParkingActivity extends AppCompatActivity
     @Override
     public List<CarDto> getCars() {
         return this.parkingBusiness.getCars();
+    }
+
+    @Override
+    public void exportData(int opcao) {
+        if(opcao == ExportDataDialogImpl.EXPORT_DATA_AND_KEEP)
+            this.parkingBusiness.exportDataAndKeepData();
+        else
+            this.parkingBusiness.exportDataWithoutKeepingThem();
     }
 }
