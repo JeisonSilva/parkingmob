@@ -7,8 +7,4 @@ public interface ParkingBusiness {
     void addCar(String plate, String custumerName) throws IOException, ClassNotFoundException;
 
     List<CarDto> getCars();
-
-    void exportDataAndKeepData();
-
-    void exportDataWithoutKeepingThem();
 }

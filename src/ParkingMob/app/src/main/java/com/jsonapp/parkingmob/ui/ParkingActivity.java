@@ -19,6 +19,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.jsonapp.parkingmob.Parking.CarDto;
+import com.jsonapp.parkingmob.Parking.DataExportBusiness;
+import com.jsonapp.parkingmob.Parking.DataExportBusinessImpl;
+import com.jsonapp.parkingmob.Parking.DataExportRepository;
+import com.jsonapp.parkingmob.Parking.DataExportRepositoryImpl;
 import com.jsonapp.parkingmob.Parking.ParkingBusiness;
 import com.jsonapp.parkingmob.Parking.ParkingBusinessImpl;
 import com.jsonapp.parkingmob.Parking.ParkingDal;
@@ -26,6 +30,10 @@ import com.jsonapp.parkingmob.Parking.ParkingDto;
 import com.jsonapp.parkingmob.Parking.ParkingRepository;
 import com.jsonapp.parkingmob.Parking.ParkingRepositoryImpl;
 import com.jsonapp.parkingmob.R;
+import com.jsonapp.parkingmob.login.LoginBusiness;
+import com.jsonapp.parkingmob.login.LoginBusinessImpl;
+import com.jsonapp.parkingmob.login.LoginRepository;
+import com.jsonapp.parkingmob.login.LoginRepositoryImpl;
 import com.jsonapp.parkingmob.ui.dialogs.ExportDataDialogImpl;
 import com.jsonapp.parkingmob.ui.fragments.ParkingManangerFragment;
 import com.jsonapp.parkingmob.ui.fragments.RequestCarDataFragment;
@@ -42,6 +50,7 @@ public class ParkingActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private ParkingBusiness parkingBusiness;
+    private DataExportBusiness dataExportBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +68,16 @@ public class ParkingActivity extends AppCompatActivity
         toggle.syncState();
 
         ParkingRepository parkingRepository = new ParkingRepositoryImpl();
+        DataExportRepository dataExportRepository =new DataExportRepositoryImpl();
+        LoginRepository loginRepository = new LoginRepositoryImpl();
+
         this.parkingBusiness = new ParkingBusinessImpl(this, parkingRepository);
+
+        this.dataExportBusiness = new DataExportBusinessImpl(
+                this,
+                loginRepository,
+                parkingRepository,
+                dataExportRepository);
     }
 
     @Override
@@ -145,8 +163,8 @@ public class ParkingActivity extends AppCompatActivity
     @Override
     public void exportData(int opcao) {
         if(opcao == ExportDataDialogImpl.EXPORT_DATA_AND_KEEP)
-            this.parkingBusiness.exportDataAndKeepData();
+            this.dataExportBusiness.exportDataAndKeepData();
         else
-            this.parkingBusiness.exportDataWithoutKeepingThem();
+            this.dataExportBusiness.exportDataWithoutKeepingThem();
     }
 }

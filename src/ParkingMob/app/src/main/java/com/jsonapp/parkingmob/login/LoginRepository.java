@@ -9,4 +9,6 @@ public interface LoginRepository {
     void rememberUser();
 
     boolean isRemember();
+
+    LoginDto getLoginCurrent();
 }
