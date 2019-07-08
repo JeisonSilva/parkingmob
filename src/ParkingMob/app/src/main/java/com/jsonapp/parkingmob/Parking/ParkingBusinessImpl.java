@@ -61,4 +61,10 @@ public class ParkingBusinessImpl implements ParkingBusiness {
         this.parkingDal.screenProfileUser(loginDto.getName(), loginDto.getEmail());
     }
 
+    @Override
+    public void logout(LoginRepository loginRepository) {
+        loginRepository.noRememberUser();
+        this.parkingDal.finish();
+    }
+
 }
