@@ -54,6 +54,7 @@ public class ParkingActivity extends AppCompatActivity
     private DataExportBusiness dataExportBusiness;
     private AppCompatTextView compat_txt_profile_userName;
     private AppCompatTextView compat_txt_profile_email;
+    private LoginRepository loginRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class ParkingActivity extends AppCompatActivity
 
         ParkingRepository parkingRepository = new ParkingRepositoryImpl();
         DataExportRepository dataExportRepository =new DataExportRepositoryImpl();
-        LoginRepository loginRepository = new LoginRepositoryImpl();
+        this.loginRepository = new LoginRepositoryImpl();
 
         this.parkingBusiness = new ParkingBusinessImpl(this, parkingRepository);
 
@@ -88,11 +89,8 @@ public class ParkingActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-
-        LoginRepository loginRepository = new LoginRepositoryImpl();
-
         this.parkingBusiness.loadStorageInternalToMemory();
-        this.parkingBusiness.loadProfileUser(loginRepository);
+        this.parkingBusiness.loadProfileUser(this.loginRepository);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager
@@ -124,7 +122,7 @@ public class ParkingActivity extends AppCompatActivity
                 exportDataDialog.openDialog(getSupportFragmentManager());
             }
             case R.id.mnu_logout:{
-
+                this.parkingBusiness.logout(this.loginRepository);
             }
         }
 

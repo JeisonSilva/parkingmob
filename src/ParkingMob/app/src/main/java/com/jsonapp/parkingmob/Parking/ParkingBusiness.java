@@ -13,4 +13,6 @@ public interface ParkingBusiness {
     void loadStorageInternalToMemory();
 
     void loadProfileUser(LoginRepository loginRepository);
+
+    void logout(LoginRepository loginRepository);
 }
