@@ -11,4 +11,6 @@ public interface ParkingDal {
     int checkReadPermission();
 
     void requestPermission(String[] permission);
+
+    void finish();
 }

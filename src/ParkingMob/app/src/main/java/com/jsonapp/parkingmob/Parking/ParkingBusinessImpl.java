@@ -37,4 +37,17 @@ public class ParkingBusinessImpl implements ParkingBusiness {
         return this.parking.getCars();
     }
 
+    @Override
+    public void loadStorageInternalToMemory() {
+        try {
+            List<CarDto> carDtos = this.parkingRepository.getCars();
+            this.parking.setCars(carDtos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

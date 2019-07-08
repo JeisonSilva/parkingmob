@@ -25,9 +25,13 @@ public class LoginRepositoryImpl implements LoginRepository {
 
     @Override
     public void rememberUser() {
+        setRemember(true);
+    }
+
+    private void setRemember(boolean valeu) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("authorization.data",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("remember", true);
+        editor.putBoolean("remember", valeu);
         editor.apply();
     }
 
@@ -53,5 +57,10 @@ public class LoginRepositoryImpl implements LoginRepository {
         loginDto.setPassword(password);
         loginDto.setRemember(remember);
         return loginDto;
+    }
+
+    @Override
+    public void noRememberUser() {
+        setRemember(false);
     }
 }

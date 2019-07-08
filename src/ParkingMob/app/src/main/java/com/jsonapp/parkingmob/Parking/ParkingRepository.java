@@ -2,6 +2,7 @@ package com.jsonapp.parkingmob.Parking;
 
 import android.content.Context;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface ParkingRepository {
     void setContext(Context context);
 
     List<CarDto> getCars() throws IOException, ClassNotFoundException;
+
+    void clear() throws IOException;
 }

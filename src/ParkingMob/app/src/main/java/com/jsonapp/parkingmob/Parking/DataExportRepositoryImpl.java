@@ -23,11 +23,12 @@ public class DataExportRepositoryImpl implements DataExportRepository {
 
         objectOutputStream.writeObject(parkingDto);
         fileOutputStream.write(byteArrayOutputStream.toByteArray());
+        fileOutputStream.flush();
     }
 
     private FileOutputStream getFileOutputStream() throws FileNotFoundException {
         String baseDir =  Environment.getExternalStorageDirectory().getAbsolutePath();
-        String pathFile = String.format("%s%s%s",baseDir, File.separator, "dataexport.data");
+        String pathFile = String.format("%s%s%s%s%s",baseDir, File.separator,"Download",File.separator, "dataexport.data");
         File file = new File(pathFile);
         FileOutputStream fileOutputStream = new FileOutputStream(file);
 

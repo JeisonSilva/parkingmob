@@ -24,19 +24,16 @@ import com.jsonapp.parkingmob.Parking.DataExportRepositoryImpl;
 import com.jsonapp.parkingmob.Parking.ParkingBusiness;
 import com.jsonapp.parkingmob.Parking.ParkingBusinessImpl;
 import com.jsonapp.parkingmob.Parking.ParkingDal;
-import com.jsonapp.parkingmob.Parking.ParkingDto;
 import com.jsonapp.parkingmob.Parking.ParkingRepository;
 import com.jsonapp.parkingmob.Parking.ParkingRepositoryImpl;
 import com.jsonapp.parkingmob.R;
 
-import com.jsonapp.parkingmob.login.LoginBusiness;
-import com.jsonapp.parkingmob.login.LoginBusinessImpl;
 import com.jsonapp.parkingmob.login.LoginRepository;
 import com.jsonapp.parkingmob.login.LoginRepositoryImpl;
-import com.jsonapp.parkingmob.ui.dialogs.ExportDataDialogImpl;
+import com.jsonapp.parkingmob.ui.dialogs.ExportDataDialogFragment;
 
+import com.jsonapp.parkingmob.ui.dialogs.RegisterCarParkingDialogFragment;
 import com.jsonapp.parkingmob.ui.fragments.ParkingManangerFragment;
-import com.jsonapp.parkingmob.ui.fragments.RequestCarDataFragment;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,7 +41,8 @@ import java.util.List;
 public class ParkingActivity extends AppCompatActivity
         implements ParkingDal,
         ParkingManangerFragment.OnFragmentInteractionListener,
-        RequestCarDataFragment.OnFragmentInteractionListener, ExportDataDialogImpl.ExportDataDialog {
+        RegisterCarParkingDialogFragment.RegisterCarInterface,
+        ExportDataDialogFragment.ExportDataDialog {
 
     private static final int REQUEST_PERMISSION = 1;
     private Toolbar toolbar;
@@ -85,6 +83,8 @@ public class ParkingActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
+        this.parkingBusiness.loadStorageInternalToMemory();
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager
                 .beginTransaction()
@@ -111,7 +111,7 @@ public class ParkingActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.mnu_export_file:{
-                ExportDataDialogImpl exportDataDialog = ExportDataDialogImpl.newDialog();
+                ExportDataDialogFragment exportDataDialog = ExportDataDialogFragment.newDialog();
                 exportDataDialog.openDialog(getSupportFragmentManager());
             }
             case R.id.mnu_logout:{
@@ -174,10 +174,23 @@ public class ParkingActivity extends AppCompatActivity
                 return;
             }
 
-            if(opcao == ExportDataDialogImpl.EXPORT_DATA_AND_KEEP)
+            if(opcao == ExportDataDialogFragment.EXPORT_DATA_AND_KEEP)
                 this.dataExportBusiness.exportDataAndKeepData();
             else
                 this.dataExportBusiness.exportDataWithoutKeepingThem();
+
+            Toast.makeText(this, "Exportado com sucesso", Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Não foi possível exportar dados", Toast.LENGTH_LONG).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void addCar(String plate, String consumerName) {
+        try {
+            this.parkingBusiness.addCar(plate, consumerName);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

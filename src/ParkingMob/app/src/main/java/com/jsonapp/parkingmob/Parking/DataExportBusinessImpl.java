@@ -46,6 +46,9 @@ public class DataExportBusinessImpl implements DataExportBusiness {
     @Override
     public void exportDataWithoutKeepingThem() throws IOException, ClassNotFoundException {
         exportData();
+        this.parkingRepository.clear();
+        this.loginRepository.noRememberUser();
+        this.parkingDal.finish();
     }
 
     private void exportData() throws IOException, ClassNotFoundException {
@@ -56,7 +59,8 @@ public class DataExportBusinessImpl implements DataExportBusiness {
         parkingDto.setUserDto(loginDto);
         parkingDto.setCars(carDtos);
 
-        this.dataExportRepository.export(parkingDto);
+        if(carDtos.size() > 0)
+            this.dataExportRepository.export(parkingDto);
     }
 
     @Override

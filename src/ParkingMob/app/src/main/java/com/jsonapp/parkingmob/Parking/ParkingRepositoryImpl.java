@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingRepositoryImpl implements ParkingRepository {
@@ -19,12 +20,22 @@ public class ParkingRepositoryImpl implements ParkingRepository {
         List<CarDto> list = getListCars();
 
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(this.context.openFileOutput("cars.data", Context.MODE_PRIVATE));
-        objectOutputStream.writeObject(car);
+        list.add(car);
+        objectOutputStream.writeObject(list);
     }
 
-    private List<CarDto> getListCars() throws IOException, ClassNotFoundException {
-        ObjectInputStream objectInputStream = new ObjectInputStream(this.context.openFileInput("cars.data"));
-        return (List<CarDto>)objectInputStream.readObject();
+    private List<CarDto> getListCars(){
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(this.context.openFileInput("cars.data"));
+            return (List<CarDto>)objectInputStream.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+
     }
 
     @Override
@@ -33,7 +44,13 @@ public class ParkingRepositoryImpl implements ParkingRepository {
     }
 
     @Override
-    public List<CarDto> getCars() throws IOException, ClassNotFoundException {
+    public List<CarDto> getCars(){
         return this.getListCars();
+    }
+
+    @Override
+    public void clear() throws IOException {
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(this.context.openFileOutput("cars.data", Context.MODE_PRIVATE));
+        objectOutputStream.writeObject(new ArrayList<CarDto>());
     }
 }

@@ -1,6 +1,5 @@
 package com.jsonapp.parkingmob.ui.dialogs;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +13,7 @@ import android.widget.RadioButton;
 
 import com.jsonapp.parkingmob.R;
 
-public class ExportDataDialogImpl extends DialogFragment{
+public class ExportDataDialogFragment extends DialogFragment{
     private static final String DIALOG_TAG = "EXPORT_DATA";
     public static final int EXPORT_DATA_AND_KEEP = 0;
     public static final int EXPORT_DATA_WITHOUT_KEEPING_THEM = 1;
@@ -22,8 +21,8 @@ public class ExportDataDialogImpl extends DialogFragment{
     private RadioButton rb_export_data_and_keep_data;
     private RadioButton rb_export_data_without_keeping_them;
 
-    public static ExportDataDialogImpl newDialog(){
-        return new ExportDataDialogImpl();
+    public static ExportDataDialogFragment newDialog(){
+        return new ExportDataDialogFragment();
     }
 
     public interface ExportDataDialog{
