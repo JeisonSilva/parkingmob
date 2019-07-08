@@ -3,8 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="Minha Conta"
+        android:id="@+id/mnu_my_account"
         android:icon="@mipmap/ic_user_balck"/>
 
     <item android:title="Estacionamento"
+        android:id="@+id/mnu_parking"
         android:icon="@mipmap/ic_car_balck"/>
 </menu>

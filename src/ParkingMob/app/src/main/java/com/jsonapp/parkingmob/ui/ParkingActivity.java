@@ -2,6 +2,7 @@ package com.jsonapp.parkingmob.ui;
 
 import android.Manifest;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -44,7 +45,8 @@ public class ParkingActivity extends AppCompatActivity
         implements ParkingDal,
         ParkingManangerFragment.OnFragmentInteractionListener,
         RegisterCarParkingDialogFragment.RegisterCarInterface,
-        ExportDataDialogFragment.ExportDataDialog {
+        ExportDataDialogFragment.ExportDataDialog,
+        NavigationView.OnNavigationItemSelectedListener {
 
     private static final int REQUEST_PERMISSION = 1;
     private Toolbar toolbar;
@@ -68,17 +70,16 @@ public class ParkingActivity extends AppCompatActivity
         compat_txt_profile_email = navigationView.getHeaderView(0).findViewById(R.id.compat_txt_profile_email);
 
         setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar, R.string.open_drawer, R.string.close_drawer);
+        navigationView.setNavigationItemSelectedListener(this);
 
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open_drawer, R.string.close_drawer);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         ParkingRepository parkingRepository = new ParkingRepositoryImpl();
-        DataExportRepository dataExportRepository =new DataExportRepositoryImpl();
+        DataExportRepository dataExportRepository = new DataExportRepositoryImpl();
         this.loginRepository = new LoginRepositoryImpl();
-
         this.parkingBusiness = new ParkingBusinessImpl(this, parkingRepository);
-
         this.dataExportBusiness = new DataExportBusinessImpl(
                 this,
                 loginRepository,
@@ -101,9 +102,9 @@ public class ParkingActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)){
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }else{
+        } else {
             super.onBackPressed();
         }
     }
@@ -116,12 +117,12 @@ public class ParkingActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.mnu_export_file:{
+        switch (item.getItemId()) {
+            case R.id.mnu_export_file: {
                 ExportDataDialogFragment exportDataDialog = ExportDataDialogFragment.newDialog();
                 exportDataDialog.openDialog(getSupportFragmentManager());
             }
-            case R.id.mnu_logout:{
+            case R.id.mnu_logout: {
                 this.parkingBusiness.logout(this.loginRepository);
             }
         }
@@ -181,13 +182,13 @@ public class ParkingActivity extends AppCompatActivity
         try {
             boolean isPermissionEnable = this.dataExportBusiness.verifyPermissions();
 
-            if(!isPermissionEnable){
+            if (!isPermissionEnable) {
                 this.dataExportBusiness.requestPermission();
                 Toast.makeText(this, "Deverá refazer a exportação de dados", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            if(opcao == ExportDataDialogFragment.EXPORT_DATA_AND_KEEP)
+            if (opcao == ExportDataDialogFragment.EXPORT_DATA_AND_KEEP)
                 this.dataExportBusiness.exportDataAndKeepData();
             else
                 this.dataExportBusiness.exportDataWithoutKeepingThem();
@@ -200,6 +201,7 @@ public class ParkingActivity extends AppCompatActivity
             e.printStackTrace();
         }
     }
+
     @Override
     public void addCar(String plate, String consumerName) {
         try {
@@ -209,5 +211,20 @@ public class ParkingActivity extends AppCompatActivity
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.mnu_my_account: {
+                Toast.makeText(this, "Ainda não implementado", Toast.LENGTH_LONG).show();
+            }
+            case R.id.mnu_parking: {
+                requestListCar();
+            }
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
