@@ -50,6 +50,7 @@ public class ExportDataDialogImpl extends DialogFragment{
             @Override
             public void onClick(View v) {
                 exportListener.exportData(EXPORT_DATA_AND_KEEP);
+                dismiss();
             }
         });
 
@@ -57,6 +58,7 @@ public class ExportDataDialogImpl extends DialogFragment{
             @Override
             public void onClick(View v) {
                 exportListener.exportData(EXPORT_DATA_WITHOUT_KEEPING_THEM);
+                dismiss();
             }
         });
 
