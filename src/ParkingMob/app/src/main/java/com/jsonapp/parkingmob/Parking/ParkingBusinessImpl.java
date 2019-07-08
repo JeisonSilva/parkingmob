@@ -2,6 +2,9 @@ package com.jsonapp.parkingmob.Parking;
 
 import android.content.Context;
 
+import com.jsonapp.parkingmob.login.LoginDto;
+import com.jsonapp.parkingmob.login.LoginRepository;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -48,6 +51,14 @@ public class ParkingBusinessImpl implements ParkingBusiness {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void loadProfileUser(LoginRepository loginRepository) {
+        loginRepository.setContext((Context) this.parkingDal);
+        LoginDto loginDto =  loginRepository.getLoginCurrent();
+
+        this.parkingDal.screenProfileUser(loginDto.getName(), loginDto.getEmail());
     }
 
 }
