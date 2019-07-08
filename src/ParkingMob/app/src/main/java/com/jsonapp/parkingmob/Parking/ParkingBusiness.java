@@ -1,5 +1,7 @@
 package com.jsonapp.parkingmob.Parking;
 
+import com.jsonapp.parkingmob.login.LoginRepository;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -9,4 +11,6 @@ public interface ParkingBusiness {
     List<CarDto> getCars();
 
     void loadStorageInternalToMemory();
+
+    void loadProfileUser(LoginRepository loginRepository);
 }

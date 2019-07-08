@@ -13,4 +13,6 @@ public interface ParkingDal {
     void requestPermission(String[] permission);
 
     void finish();
+
+    void screenProfileUser(String name, String email);
 }

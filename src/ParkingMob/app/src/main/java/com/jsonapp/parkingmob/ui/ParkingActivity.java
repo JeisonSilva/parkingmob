@@ -11,9 +11,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.jsonapp.parkingmob.Parking.CarDto;
@@ -50,6 +52,8 @@ public class ParkingActivity extends AppCompatActivity
     private NavigationView navigationView;
     private ParkingBusiness parkingBusiness;
     private DataExportBusiness dataExportBusiness;
+    private AppCompatTextView compat_txt_profile_userName;
+    private AppCompatTextView compat_txt_profile_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,8 @@ public class ParkingActivity extends AppCompatActivity
         toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigation_view);
+        compat_txt_profile_userName = navigationView.getHeaderView(0).findViewById(R.id.compat_txt_profile_name);
+        compat_txt_profile_email = navigationView.getHeaderView(0).findViewById(R.id.compat_txt_profile_email);
 
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar, R.string.open_drawer, R.string.close_drawer);
@@ -83,7 +89,10 @@ public class ParkingActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
+        LoginRepository loginRepository = new LoginRepositoryImpl();
+
         this.parkingBusiness.loadStorageInternalToMemory();
+        this.parkingBusiness.loadProfileUser(loginRepository);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager
@@ -161,6 +170,12 @@ public class ParkingActivity extends AppCompatActivity
     @Override
     public void requestPermission(String[] permission) {
         ActivityCompat.requestPermissions(ParkingActivity.this, permission, REQUEST_PERMISSION);
+    }
+
+    @Override
+    public void screenProfileUser(String name, String email) {
+        compat_txt_profile_userName.setText(name);
+        compat_txt_profile_email.setText(email);
     }
 
     @Override
