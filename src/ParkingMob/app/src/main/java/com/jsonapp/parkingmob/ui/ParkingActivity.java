@@ -24,6 +24,7 @@ import com.jsonapp.parkingmob.Parking.ParkingDto;
 import com.jsonapp.parkingmob.Parking.ParkingRepository;
 import com.jsonapp.parkingmob.Parking.ParkingRepositoryImpl;
 import com.jsonapp.parkingmob.R;
+import com.jsonapp.parkingmob.ui.dialogs.RegisterCarParkingDialogFragment;
 import com.jsonapp.parkingmob.ui.fragments.ParkingManangerFragment;
 import com.jsonapp.parkingmob.ui.fragments.RequestCarDataFragment;
 
@@ -33,7 +34,7 @@ import java.util.List;
 public class ParkingActivity extends AppCompatActivity
         implements ParkingDal,
         ParkingManangerFragment.OnFragmentInteractionListener,
-        RequestCarDataFragment.OnFragmentInteractionListener {
+        RegisterCarParkingDialogFragment.RegisterCarInterface{
 
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -92,22 +93,9 @@ public class ParkingActivity extends AppCompatActivity
 
     @Override
     public void requestCarData() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_layout, RequestCarDataFragment.newInstance())
-                .commit();
-    }
+        RegisterCarParkingDialogFragment registerCarParkingDialogFragment = RegisterCarParkingDialogFragment.newInstance();
+        registerCarParkingDialogFragment.openDialog(getSupportFragmentManager());
 
-    @Override
-    public void addNewCar(String plate, String custumerName) {
-        try {
-            this.parkingBusiness.addCar(plate, custumerName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -122,5 +110,16 @@ public class ParkingActivity extends AppCompatActivity
     @Override
     public List<CarDto> getCars() {
         return this.parkingBusiness.getCars();
+    }
+
+    @Override
+    public void addCar(String plate, String consumerName) {
+        try {
+            this.parkingBusiness.addCar(plate, consumerName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
