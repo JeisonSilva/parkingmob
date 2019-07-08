@@ -5,4 +5,10 @@ import java.util.List;
 public interface ParkingDal {
     void requestListCar();
     List<CarDto> getCars();
+
+    int checkWritePermission();
+
+    int checkReadPermission();
+
+    void requestPermission(String[] permission);
 }

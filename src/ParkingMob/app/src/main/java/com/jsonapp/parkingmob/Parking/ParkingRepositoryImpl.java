@@ -31,4 +31,9 @@ public class ParkingRepositoryImpl implements ParkingRepository {
     public void setContext(Context context) {
         this.context =context;
     }
+
+    @Override
+    public List<CarDto> getCars() throws IOException, ClassNotFoundException {
+        return this.getListCars();
+    }
 }

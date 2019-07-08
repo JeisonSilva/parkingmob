@@ -1,7 +1,13 @@
 package com.jsonapp.parkingmob.Parking;
 
-public interface DataExportBusiness {
-    void exportDataAndKeepData();
+import java.io.IOException;
 
-    void exportDataWithoutKeepingThem();
+public interface DataExportBusiness {
+    void exportDataAndKeepData() throws IOException, ClassNotFoundException;
+
+    void exportDataWithoutKeepingThem() throws IOException, ClassNotFoundException;
+
+    boolean verifyPermissions();
+
+    void requestPermission();
 }

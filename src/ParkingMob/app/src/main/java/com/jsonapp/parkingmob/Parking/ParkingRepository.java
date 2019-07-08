@@ -10,5 +10,5 @@ public interface ParkingRepository {
 
     void setContext(Context context);
 
-    List<CarDto> getCars();
+    List<CarDto> getCars() throws IOException, ClassNotFoundException;
 }

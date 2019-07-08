@@ -1,11 +1,11 @@
 package com.jsonapp.parkingmob.ui;
 
+import android.Manifest;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,9 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.jsonapp.parkingmob.Parking.CarDto;
@@ -46,6 +44,7 @@ public class ParkingActivity extends AppCompatActivity
         ParkingManangerFragment.OnFragmentInteractionListener,
         RequestCarDataFragment.OnFragmentInteractionListener, ExportDataDialogImpl.ExportDataDialog {
 
+    private static final int REQUEST_PERMISSION = 1;
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -161,10 +160,41 @@ public class ParkingActivity extends AppCompatActivity
     }
 
     @Override
+    public int checkWritePermission() {
+        return ContextCompat.checkSelfPermission(ParkingActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    @Override
+    public int checkReadPermission() {
+        return ContextCompat.checkSelfPermission(ParkingActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+    }
+
+    @Override
+    public void requestPermission(String[] permission) {
+        ActivityCompat.requestPermissions(ParkingActivity.this, permission, REQUEST_PERMISSION);
+    }
+
+    @Override
     public void exportData(int opcao) {
-        if(opcao == ExportDataDialogImpl.EXPORT_DATA_AND_KEEP)
-            this.dataExportBusiness.exportDataAndKeepData();
-        else
-            this.dataExportBusiness.exportDataWithoutKeepingThem();
+        try {
+            boolean isPermissionEnable = this.dataExportBusiness.verifyPermissions();
+
+            if(!isPermissionEnable){
+                this.dataExportBusiness.requestPermission();
+                Toast.makeText(this, "Deverá refazer a exportação de dados", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if(opcao == ExportDataDialogImpl.EXPORT_DATA_AND_KEEP)
+                this.dataExportBusiness.exportDataAndKeepData();
+            else
+                this.dataExportBusiness.exportDataWithoutKeepingThem();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 }
