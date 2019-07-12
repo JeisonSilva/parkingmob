@@ -2,13 +2,14 @@ package com.jsonapp.parkingmob.signUp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class SignUpRepositoryImpl implements SignUpRepository {
     private Context context;
 
     @Override
     public void register(SubscriptionDto subscriptionDto) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("authorization.data", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putString("userName", subscriptionDto.getUserName());

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceScreen />
+    <PreferenceScreen />
+    <EditTextPreference
+        android:id="@+id/preference_edit_userName"
+        android:key="email"
+        android:singleLine="true"
+        android:summary="Nome que identifica o usuário da aplicação"
+        android:title="Nome de usuário" />
+
+    <EditTextPreference
+        android:key="password"
+        android:singleLine="true"
+        android:summary="Senha que permite o login na aplicação"
+        android:title="Senha" />
+
+    <SwitchPreference
+        android:title="Notificações por e-mail"
+        android:summary="Receba notificações da aplicação, notícias e informações relevantes a sua conta de e-mail"
+        android:key="notification"/>
+
+</PreferenceScreen>

@@ -16,7 +16,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.jsonapp.parkingmob.Parking.CarDto;
@@ -37,6 +36,7 @@ import com.jsonapp.parkingmob.ui.dialogs.ExportDataDialogFragment;
 
 import com.jsonapp.parkingmob.ui.dialogs.RegisterCarParkingDialogFragment;
 import com.jsonapp.parkingmob.ui.fragments.ParkingManangerFragment;
+import com.jsonapp.parkingmob.ui.preferences.MyAccountConfig;
 
 import java.io.IOException;
 import java.util.List;
@@ -217,14 +217,23 @@ public class ParkingActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.mnu_my_account: {
-                Toast.makeText(this, "Ainda não implementado", Toast.LENGTH_LONG).show();
+                requestMyAccount();
+                break;
             }
             case R.id.mnu_parking: {
                 requestListCar();
+                break;
             }
         }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void requestMyAccount() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_layout, new MyAccountConfig())
+                .commit();
     }
 }
