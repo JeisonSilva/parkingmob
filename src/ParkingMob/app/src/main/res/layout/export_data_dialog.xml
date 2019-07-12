@@ -15,7 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:text="Exportar Registros"
+        android:text="@string/exportdatadialog_fragment_exportrecords"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -40,14 +40,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Sem salvar dados localmente" />
+            android:text="@string/exportdatadialog_fragment_tonotsalvedata" />
 
         <RadioButton
             android:id="@+id/rb_export_and_keep_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Salvar dados localmente"
+            android:text="@string/exportdatadialog_fragment_salvedata"
             tools:layout_editor_absoluteX="25dp"
             tools:layout_editor_absoluteY="231dp" />
 

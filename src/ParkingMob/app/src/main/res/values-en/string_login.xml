@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ParkingMob</string>
+
+    <!--MainActivity-->
+    <string name="main_activity_email">Email</string>
+    <string name="main_activity_password">Password</string>
+    <string name="main_activity_remember_user">Remember me</string>
+    <string name="main_activity_login">Log In</string>
+    <string name="main_activity_register">Register</string>
+
+
+    <!--SignUp-->
+    <string name="signup_activity_name">Name</string>
+    <string name="signup_activity_email">Email</string>
+    <string name="signup_activity_password">Password</string>
+    <string name="signup_activity_password_confirmation">Password confirmation</string>
+    <string name="signup_activity_register">Register</string>
+
+    <!--RequestCarDataFragment-->
+    <string name="requestcardata_fragment_newcar">New Car</string>
+    <string name="requestcardata_fragment_plate">Plate</string>
+    <string name="requestcardata_fragment_clientname">Client name</string>
+    <string name="requestcardata_fragment_include">ADD</string>
+
+    <!--ExportDataDialogFragment-->
+    <string name="exportdatadialog_fragment_exportrecords">Export records</string>
+    <string name="exportdatadialog_fragment_salvedata">Save data locally</string>
+    <string name="exportdatadialog_fragment_tonotsalvedata">Without saving data locally</string>
+
+
+    <!--MENU-->
+    <!--ParkingActivity-->
+    <string name="parking_activity_exportfile">Export File</string>
+    <string name="parking_activity_logout">Logout</string>
+    <string name="parking_activity_myAccount">My Account</string>
+    <string name="parking_activity_parking">Parking</string>
+
+    <!--MyAccountConfigPreferenceFragment-->
+    <string name="email_summary">Name that identifies the application user</string>
+    <string name="email_title">User name</string>
+    <string name="password_summary">Allows login application</string>
+    <string name="password_title">Password</string>
+    <string name="notification_summary">Get application notifications, news and information relevant to your -email account</string>
+    <string name="notification_title">Notificações por -email</string>
+
+    <!--ParkingActivity-->
+    <string name="open_drawer">OPEN</string>
+    <string name="close_drawer">CLOSE</string>
+</resources>

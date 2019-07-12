@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="Novo veículo"
+                android:text="@string/requestcardata_fragment_newcar"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 tools:layout_editor_absoluteX="16dp" />
 
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@mipmap/ic_car_balck"
                     android:drawablePadding="8dp"
-                    android:hint="Placa"
+                    android:hint="@string/requestcardata_fragment_plate"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@mipmap/ic_user_balck"
                     android:drawablePadding="8dp"
-                    android:hint="Nome do cliente"
+                    android:hint="@string/requestcardata_fragment_clientname"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="ADD" />
+                android:text="@string/requestcardata_fragment_include" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

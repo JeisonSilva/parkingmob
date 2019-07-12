@@ -4,9 +4,9 @@
 
     <item
         android:id="@+id/mnu_export_file"
-        android:title="Exportar Arquivo"/>
+        android:title="@string/parking_activity_exportfile"/>
 
     <item
         android:id="@+id/mnu_logout"
-        android:title="Encerrar Sessão"/>
+        android:title="@string/parking_activity_logout"/>
 </menu>
