@@ -121,18 +121,15 @@ public class ParkingActivity extends AppCompatActivity
             case R.id.mnu_export_file: {
                 ExportDataDialogFragment exportDataDialog = ExportDataDialogFragment.newDialog();
                 exportDataDialog.openDialog(getSupportFragmentManager());
+                break;
             }
             case R.id.mnu_logout: {
                 this.parkingBusiness.logout(this.loginRepository);
+                break;
             }
         }
 
         return true;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override
