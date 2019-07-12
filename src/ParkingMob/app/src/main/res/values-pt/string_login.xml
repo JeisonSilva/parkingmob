@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ParkingMob</string>
 
@@ -26,7 +27,6 @@
     <string name="exportdatadialog_fragment_salvedata">Salvar dados localmente</string>
     <string name="exportdatadialog_fragment_tonotsalvedata">Sem salvar dados localmente</string>
 
-
     <!--MENU-->
     <!--ParkingActivity-->
     <string name="parking_activity_exportfile">Exportar arquivos</string>
@@ -34,15 +34,15 @@
     <string name="parking_activity_myAccount">Minha conta</string>
     <string name="parking_activity_parking">Estacionamento</string>
 
-
     <!--MyAccountConfigPreferenceFragment-->
     <string name="email_summary">Nome que identifica o usuário da aplicação</string>
     <string name="email_title">Nome do usuário</string>
     <string name="password_summary">Senha que permite login na aplicação</string>
     <string name="password_title">Password</string>
-    <string name="notification_summary">Receba notificações da aemail_summaryplicação, notícias e informações relevantes a sua conta de e-mail</string>
+    <string name="notification_summary">Receba notificações da aplicação, notícias e informações relevantes a sua conta de e-mail</string>
     <string name="notification_title">Notificações por -email</string>
 
+    <!--ParkingActivity-->
     <string name="open_drawer">OPEN</string>
     <string name="close_drawer">CLOSE</string>
 </resources>

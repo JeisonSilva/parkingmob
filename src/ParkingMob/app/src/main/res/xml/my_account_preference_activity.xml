@@ -8,18 +8,18 @@
         android:id="@+id/preference_edit_userName"
         android:key="email"
         android:singleLine="true"
-        android:summary="Nome que identifica o usuário da aplicação"
-        android:title="Nome de usuário" />
+        android:summary="@string/email_summary"
+        android:title="@string/email_title" />
 
     <EditTextPreference
         android:key="password"
         android:singleLine="true"
-        android:summary="Senha que permite o login na aplicação"
-        android:title="Senha" />
+        android:summary="@string/password_summary"
+        android:title="@string/password_title" />
 
     <SwitchPreference
-        android:title="Notificações por e-mail"
-        android:summary="Receba notificações da aplicação, notícias e informações relevantes a sua conta de e-mail"
+        android:title="@string/notification_title"
+        android:summary="@string/notification_summary"
         android:key="notification"/>
 
 </PreferenceScreen>

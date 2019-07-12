@@ -26,7 +26,7 @@
             android:id="@+id/input_edit_userName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome do usuário"
+            android:hint="@string/signup_activity_name"
             android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
@@ -46,7 +46,7 @@
             android:id="@+id/input_edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/signup_activity_email"
             android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
@@ -66,7 +66,7 @@
             android:id="@+id/input_edit_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Senha"
+            android:hint="@string/signup_activity_password"
             android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
@@ -85,7 +85,7 @@
             android:id="@+id/input_edit_confirmationPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Confirmação de senha"
+            android:hint="@string/signup_activity_password_confirmation"
             android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
@@ -96,7 +96,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="CADASTRAR"
+        android:text="@string/signup_activity_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_layout_confirmationPassword" />
