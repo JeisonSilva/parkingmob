@@ -2,13 +2,14 @@ package com.jsonapp.parkingmob.login;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class LoginRepositoryImpl implements LoginRepository {
     private Context context;
 
     @Override
     public Account getAccount(String email) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("authorization.data",Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
         String registeredEmal = sharedPreferences.getString("email", "");
         String password = sharedPreferences.getString("password", "");
 
@@ -29,7 +30,7 @@ public class LoginRepositoryImpl implements LoginRepository {
     }
 
     private void setRemember(boolean valeu) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("authorization.data",Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("remember", valeu);
         editor.apply();
@@ -37,7 +38,7 @@ public class LoginRepositoryImpl implements LoginRepository {
 
     @Override
     public boolean isRemember() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("authorization.data",Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
         Boolean isRemember = sharedPreferences.getBoolean("remember", false);
         return isRemember;
     }
@@ -46,7 +47,7 @@ public class LoginRepositoryImpl implements LoginRepository {
     public LoginDto getLoginCurrent() {
         LoginDto loginDto = new LoginDto();
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences("authorization.data",Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
         String name = String.valueOf(sharedPreferences.getString("userName", ""));
         String email = String.valueOf(sharedPreferences.getString("email", ""));
         String password = String.valueOf(sharedPreferences.getString("password", ""));
